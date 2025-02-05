@@ -57,7 +57,7 @@ describe('useOnScreen', () => {
   });
 
   it('should update isIntersecting state when intersection changes', () => {
-    let intersectionCallback: (entries: IntersectionObserverEntry[]) => void;
+    let intersectionCallback: (entries: IntersectionObserverEntry[]) => void = () => { };
     mockIntersectionObserver.mockImplementation((callback) => {
       intersectionCallback = callback;
       return {

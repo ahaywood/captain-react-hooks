@@ -22,6 +22,6 @@ describe('useAutosizeTextArea', () => {
 
   it('should handle null textarea ref', () => {
     const { result } = renderHook(() => useAutosizeTextArea(null, 'text'));
-    expect(result.error).toBeUndefined();
+    expect(result.current).toBeUndefined();
   });
 });

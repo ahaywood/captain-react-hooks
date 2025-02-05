@@ -2,18 +2,26 @@ import { renderHook, act } from '@testing-library/react';
 import { useCopyToClipboard } from '../useCopyToClipboard';
 
 describe('useCopyToClipboard', () => {
-  const originalClipboard = { ...global.navigator.clipboard };
   const mockClipboard = {
-    writeText: jest.fn(),
+    writeText: jest.fn()
   };
+  const originalNavigator = { ...window.navigator };
 
   beforeEach(() => {
-    global.navigator.clipboard = mockClipboard;
+    Object.defineProperty(window, 'navigator', {
+      value: { clipboard: mockClipboard },
+      writable: true,
+      configurable: true
+    });
+    mockClipboard.writeText.mockReset();
   });
 
   afterEach(() => {
-    jest.resetAllMocks();
-    global.navigator.clipboard = originalClipboard;
+    Object.defineProperty(window, 'navigator', {
+      value: originalNavigator,
+      writable: true,
+      configurable: true
+    });
   });
 
   it('should copy text to clipboard successfully', async () => {
